@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'http_service.dart';
-import 'post_model.dart';
+import 'nama_model.dart';
 
 class ProductsPage extends StatelessWidget {
   final HttpService httpService = HttpService();
@@ -10,7 +10,7 @@ class ProductsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Produk"),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(230, 163, 255, 78),
       ),
       body: FutureBuilder(
         future: httpService.getProducts(),
@@ -49,40 +49,33 @@ class ProductCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              product.name,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Text(
+                product.name,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(height: 5),
-            Text("Harga: Rp${product.price}"),
-            Text("Stok: ${product.stock}"),
-            if (product.description != null && product.description!.isNotEmpty)
-              Text("Deskripsi: ${product.description}"),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.blue,
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                backgroundColor: const Color.fromARGB(230, 163, 255, 78),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailPage(product: product),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDetailPage(product: product),
-                      ),
-                    );
-                  },
-                  child: const Text("Detail"),
-                ),
-              ],
+                );
+              },
+              child: const Text("Detail"),
             ),
           ],
         ),
@@ -90,6 +83,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -101,7 +95,7 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(product.name),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(230, 163, 255, 78),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -138,7 +132,7 @@ class ProductDetailPage extends StatelessWidget {
                     child: Text("Stok", style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0), 
                     child: Text("${product.stock}"),
                   ),
                 ]),
@@ -161,4 +155,3 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 }
-

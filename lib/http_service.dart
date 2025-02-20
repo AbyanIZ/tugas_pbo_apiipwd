@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'post_model.dart';
+import 'nama_model.dart';
 
 class HttpService {
   final String baseUrl = "http://127.0.0.1:8000/api/products";
